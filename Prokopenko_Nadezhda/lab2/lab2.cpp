@@ -80,7 +80,6 @@ public:
     void min_way_A_star(int first, int finish, priority_queue <Priority> &queue, double way){
         vector<int> str1;
         weight_from[first] = 0;
-        int first_prior = evristic(finish, first);
         while(true){
             for(int j = 0; j < N; j++)
                 if(graf[first][j] != 0){
@@ -101,14 +100,13 @@ public:
                 first = popped.resultat[popped.resultat.size() - 1];
                 str1 = popped.resultat;
                 way = popped.prior - popped.var_evristic;
-                first_prior = popped.var_evristic + first_prior - popped.var_evristic;
-                weight_from[first] = way + first_prior;
+                weight_from[first] = way;
             }
             if(str1[str1.size() - 1] == finish){
                 if(str.size()){
                     for(auto i : str1)
                         str.push_back(i);
-                    finish_way = weight_from[first]  ;
+                    finish_way = weight_from[first];
                     print_path(str[0], str[str.size() - 1]);
                     break;
                 }
